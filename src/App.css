@@ -1,5 +1,5 @@
 .App {
-  text-align: center;
+  height: 100%;
 }
 
 .App-logo {
@@ -12,10 +12,19 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
+.App-content
+{
+   border: 1px solid lightgray;
+   width: 80%;
+   margin: auto;
 
+   padding: 20px;
+   min-height: 80%;
+
+}
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
+  max-height: 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -35,4 +44,50 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.table-row
+{
+  cursor: pointer;
+  color: gray;
+  border-bottom: 1px solid lightgray;
+  padding-bottom: 10px;
+ 
+
+}
+.table-title
+{
+ 
+    border-bottom: 1px solid lightgray;
+    margin:0;
+    padding: 10px;
+   
+    color: gray;
+}
+.order-book-container
+{
+  width: 100%;
+  border: 1px solid lightgray;
+  height: 500px;
+  padding: 5px;
+  box-sizing: border-box;
+  
+}
+.loader
+{
+  width: 50%;
+  margin: auto;
+  text-align: center;
+  margin-top: 25%;
+  color: gray;
+}
+.ReactVirtualized__Table__headerColumn
+{
+  width: 24%;
+
+}
+.btn-container
+{
+  padding: 15px;
+    padding-right: 59px;
 }

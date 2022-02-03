@@ -14,14 +14,14 @@ function App() {
       <header className="App-header"><p>Binance's Order Book</p></header>
       <div className='App-content'>
         <BrowserRouter>
-         <Routes>
-          <Route path="/" element={<OrderBookHome />} />
-          <Route path="/orderbook" element={<OrderBookHome />} />
-          <Route path="/orderbook/:symbol" element={<OrderBookHome />} />
-          <Route path="*" element={<main style={{ padding: "1rem" }}><p>There's nothing here!</p><Link to="/orderbook">Go to order book </Link></main>}/>
-         </Routes>
+          <Routes>
+            <Route path="/" element={<OrderBookHome />} />
+            <Route path="/orderbook" element={<OrderBookHome />} />
+            <Route path="/orderbook/:symbol" element={<OrderBookHome />} />
+            <Route path="*" element={<main style={{ padding: "1rem" }}><p>There's nothing here!</p><Link to="/orderbook">Go to order book </Link></main>} />
+          </Routes>
         </BrowserRouter>
-        
+
       </div>
     </div>
   );

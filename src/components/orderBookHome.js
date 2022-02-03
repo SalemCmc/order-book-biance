@@ -55,7 +55,6 @@ function OrderBookHome() {
             client.onmessage = (event) => {setAsksBids(formatAskBids(JSON.parse(event.data).data));
           };         
         }
-        //else navigate("/wrong-symbol/");
       },[params.symbol]);
 
       const filterAndFormatData=(items)=>

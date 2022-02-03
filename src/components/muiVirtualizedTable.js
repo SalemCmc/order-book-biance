@@ -19,8 +19,6 @@ const styles = (theme) => ({
     width: '24%',
   },
   table: {
-    // temporary right-to-left patch, waiting for
-    // https://github.com/bvaughn/react-virtualized/issues/454
     '& .ReactVirtualized__Table__headerRow': {
       ...(theme.direction === 'rtl' && {
         paddingLeft: '0 !important',
@@ -51,9 +49,6 @@ class MuiVirtualizedTable extends React.PureComponent {
     headerHeight: 48,
     rowHeight: 48,
   };
-
-  
-
   getRowClassName = ({ index }) => {
     const { classes, onRowClick } = this.props;
 
@@ -78,7 +73,6 @@ class MuiVirtualizedTable extends React.PureComponent {
         variant="body"
         style={{ height: rowHeight, color:clr }}
         align={txtAlign}
-        //align={(columnIndex != null && columns[columnIndex].numeric) || false ? 'right' : 'left' }
       >
         {this.props.decimalFormat(cellData,columnIndex)}
       </TableCell>
@@ -97,7 +91,6 @@ class MuiVirtualizedTable extends React.PureComponent {
         variant="head"
         style={{ height: headerHeight , width: "100%" ,fontWeight: "bold", color: "gray" }}
         align={txtAlign}
-       // align={columns[columnIndex].numeric || false ? 'right' : 'left'}
       >
         <span>{label}</span>
       </TableCell>

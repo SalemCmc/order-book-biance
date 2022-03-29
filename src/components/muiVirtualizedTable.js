@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import clsx from 'clsx';
 import { withStyles } from '@mui/styles';
 import { createTheme } from '@mui/material/styles';
@@ -57,39 +56,39 @@ class MuiVirtualizedTable extends React.PureComponent {
     });
   };
 
-  cellRenderer = ({ cellData, columnIndex }) => {  
-    const { columns, classes, rowHeight, onRowClick } = this.props;
-    let clr="";
-    if(columnIndex==1) clr="green";
-    if(columnIndex==2) clr="red";
-    let txtAlign="left";
-    if(columnIndex==1 ||columnIndex==3) txtAlign="right";
+  cellRenderer = ({ cellData, columnIndex }) => {
+    const { classes, rowHeight, onRowClick } = this.props;
+    let clr = "";
+    if (columnIndex === 1) clr = "green";
+    if (columnIndex === 2) clr = "red";
+    let txtAlign = "left";
+    if (columnIndex === 1 || columnIndex === 3) txtAlign = "right";
     return (
       <TableCell
         component="div"
         className={clsx(classes.tableCell, classes.flexContainer, {
-          [classes.noClick]: onRowClick == null,
+          [classes.noClick]: onRowClick === null,
         })}
         variant="body"
-        style={{ height: rowHeight, color:clr }}
+        style={{ height: rowHeight, color: clr }}
         align={txtAlign}
       >
-        {this.props.decimalFormat(cellData,columnIndex)}
+        {this.props.decimalFormat(cellData, columnIndex)}
       </TableCell>
     );
   };
 
   headerRenderer = ({ label, columnIndex }) => {
-    const { headerHeight, columns, classes } = this.props;
-    let txtAlign="left";
-    if(columnIndex==1 ||columnIndex==3) txtAlign="right";
+    const { headerHeight, classes } = this.props;
+    let txtAlign = "left";
+    if (columnIndex === 1 || columnIndex === 3) txtAlign = "right";
 
     return (
       <TableCell
         component="div"
         className={clsx(classes.tableCell, classes.flexContainer, classes.noClick)}
         variant="head"
-        style={{ height: headerHeight , width: "100%" ,fontWeight: "bold", color: "gray" }}
+        style={{ height: headerHeight, width: "100%", fontWeight: "bold", color: "gray" }}
         align={txtAlign}
       >
         <span>{label}</span>
@@ -97,7 +96,7 @@ class MuiVirtualizedTable extends React.PureComponent {
     );
   };
 
-  render() {  
+  render() {
     const { classes, columns, rowHeight, headerHeight, ...tableProps } = this.props;
     return (
       <AutoSizer>
@@ -143,73 +142,70 @@ const defaultTheme = createTheme();
 const VirtualizedTable = withStyles(styles, { defaultTheme })(MuiVirtualizedTable);
 
 
-export default function ReactVirtualizedTable( props) {
+export default function ReactVirtualizedTable(props) {
 
   const { list, columns } = props;
   const [asksFormatIndex, setAsksFormatIndex] = useState(8);
   const [bidsFormatIndex, setBidsFormatIndex] = useState(8);
 
-  const decimalFormat=(value,index)=>
-  {
-    if(parseFloat(value))
-    {
-      let decimalParam=asksFormatIndex;;
-      if(index<2)
-      decimalParam=bidsFormatIndex;
+  const decimalFormat = (value, index) => {
+    if (parseFloat(value)) {
+      let decimalParam = asksFormatIndex;;
+      if (index < 2)
+        decimalParam = bidsFormatIndex;
 
-     return parseFloat(value).toFixed(decimalParam); 
+      return parseFloat(value).toFixed(decimalParam);
     }
     return value;
   }
 
-  const changeAllDecimalFormat=(value)=>
-  {
-        let allDecimalValue=value+(asksFormatIndex+bidsFormatIndex)/2;
-        setAsksFormatIndex(allDecimalValue);
-        setBidsFormatIndex(allDecimalValue);       
+  const changeAllDecimalFormat = (value) => {
+    let allDecimalValue = value + (asksFormatIndex + bidsFormatIndex) / 2;
+    setAsksFormatIndex(allDecimalValue);
+    setBidsFormatIndex(allDecimalValue);
   }
   return (
     <>
 
-       { list==null?<div className='loader'><CircularProgress  /> <p>{"Loaading order book..."}</p></div>:null}
-        {list?.length>0?        
-          <>
-              <h6 className='table-title'>Order book</h6>
-              <Grid container spacing={1} className='btn-container'>
-                <Grid item xs={4}>
-                  <ButtonGroup variant="text" aria-label="text button group">
-                   <Button disabled={bidsFormatIndex<=0} onClick={()=>setBidsFormatIndex(bidsFormatIndex-1)}>-</Button>
-                   <Button disabled={bidsFormatIndex>=8} onClick={()=>setBidsFormatIndex(bidsFormatIndex+1)}>+</Button>
-                  </ButtonGroup>
-                </Grid>
-                <Grid item xs={4} style={{ textAlign: "center"}}>
-                    <ButtonGroup variant="text" aria-label="text button group">
-                   <Button disabled={(bidsFormatIndex+asksFormatIndex)<=0} onClick={()=>changeAllDecimalFormat(-1)}>-</Button>
-                   <Button disabled={(bidsFormatIndex+asksFormatIndex)>=16} onClick={()=>changeAllDecimalFormat(1)}>+</Button>
-                   </ButtonGroup>
-                </Grid>
-                 <Grid item xs={4} style={{ textAlign: "right"}} >
-                  <ButtonGroup variant="text" aria-label="text button group">
-                   <Button disabled={asksFormatIndex<=0} onClick={()=>setAsksFormatIndex(asksFormatIndex-1)}>-</Button>
-                   <Button disabled={asksFormatIndex>=8} onClick={()=>setAsksFormatIndex(asksFormatIndex+1)}>+</Button>
-                  </ButtonGroup>
-                 </Grid>
-              </Grid>
+      {list === null ? <div className='loader'><CircularProgress /> <p>{"Loaading order book..."}</p></div> : null}
+      {list?.length > 0 ?
+        <>
+          <h6 className='table-title'>Order book</h6>
+          <Grid container spacing={1} className='btn-container'>
+            <Grid item xs={4}>
+              <ButtonGroup variant="text" aria-label="text button group">
+                <Button disabled={bidsFormatIndex <= 0} onClick={() => setBidsFormatIndex(bidsFormatIndex - 1)}>-</Button>
+                <Button disabled={bidsFormatIndex >= 8} onClick={() => setBidsFormatIndex(bidsFormatIndex + 1)}>+</Button>
+              </ButtonGroup>
+            </Grid>
+            <Grid item xs={4} style={{ textAlign: "center" }}>
+              <ButtonGroup variant="text" aria-label="text button group">
+                <Button disabled={(bidsFormatIndex + asksFormatIndex) <= 0} onClick={() => changeAllDecimalFormat(-1)}>-</Button>
+                <Button disabled={(bidsFormatIndex + asksFormatIndex) >= 16} onClick={() => changeAllDecimalFormat(1)}>+</Button>
+              </ButtonGroup>
+            </Grid>
+            <Grid item xs={4} style={{ textAlign: "right" }} >
+              <ButtonGroup variant="text" aria-label="text button group">
+                <Button disabled={asksFormatIndex <= 0} onClick={() => setAsksFormatIndex(asksFormatIndex - 1)}>-</Button>
+                <Button disabled={asksFormatIndex >= 8} onClick={() => setAsksFormatIndex(asksFormatIndex + 1)}>+</Button>
+              </ButtonGroup>
+            </Grid>
+          </Grid>
 
 
-             <Paper style={{ height: 500, width: '100%' }}>
-               <VirtualizedTable
-                 rowCount={list.length}
-                 rowGetter={({ index }) => list[index]}
-                 columns={columns}
-                 decimalFormat={decimalFormat}
-               />
-             </Paper> 
-             </>
-             :
-             null
-        }
+          <Paper style={{ height: 500, width: '100%' }}>
+            <VirtualizedTable
+              rowCount={list.length}
+              rowGetter={({ index }) => list[index]}
+              columns={columns}
+              decimalFormat={decimalFormat}
+            />
+          </Paper>
+        </>
+        :
+        null
+      }
 
-   </>
+    </>
   );
 }
